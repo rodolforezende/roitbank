@@ -11,18 +11,12 @@ const registerUser = async (name, email, password) => {
   const register = await db.collection('users').insertOne({
     name, email, password,
   });
-  return {
-    user: {
-      _id: register.insertedId, name, email,
-    },
-  };
+  return { user: { id: register.insertedId, name, email } };
 };
 
-const loginExist = async (email, password) => {
+const loginExist = async (email) => {
   const db = await connection();
-  const findLogin = await db.collection('users').findOne({
-    email, password,
-  });
+  const findLogin = await db.collection('users').findOne({ email });
   return findLogin;
 };
 
