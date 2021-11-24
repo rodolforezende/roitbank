@@ -1,0 +1,39 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/api/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node .",
+    "dev": "nodemon",
+    "dev:test": "mocha ./src/integration-tests/*test.js --timeout 120000 --exit",
+    "dev:test:coverage": "nyc --all npm run dev:test",
+    "dev:test:coverage:json": "nyc --all --reporter=json-summary npm run dev:test",
+    "lint": "eslint --no-inline-config --ext .js,.jsx --no-error-on-unmatched-pattern -c .eslintrc.json ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "eslint": "^8.3.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "jest": "^27.3.1",
+    "mocha": "^9.1.3",
+    "mongodb-memory-server": "^8.0.2",
+    "nodemon": "^2.0.15",
+    "nyc": "^15.1.0",
+    "sinon": "^12.0.1"
+  }
+}
