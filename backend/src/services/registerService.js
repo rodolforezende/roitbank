@@ -5,22 +5,29 @@ const registerUsers = async (data) => {
   return result;
 };
 
-const updateRegister = async (data) => {
-  const result = await registerModel.updateRegister(data);
-  if (!data) {
+const getAllRegister = async () => {
+  const result = registerModel.allRegister();
+  return result;
+};
+
+const updateRegister = async ({ _id: dataId, ...data }) => {
+  const result = await registerModel.updateRegister(dataId, data);
+  if (!result) {
     return {
-      message: 'register not found',
+      message: 'Register not found',
     };
   }
   return result;
 };
 
 const deleteRegister = async (id) => {
-  await registerModel.excludeRegister(id);
+  const result = await registerModel.excludeRegister(id);
+  return result;
 };
 
 module.exports = {
   registerUsers,
+  getAllRegister,
   updateRegister,
   deleteRegister,
 };

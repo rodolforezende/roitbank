@@ -1,18 +1,10 @@
+const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
 const registerCreate = async (data) => {
-  const {
-    id, name, age, github, cep, state, city, district, street, num, comp,
-  } = data;
   const db = await connection();
-  await db.collection('registers').insertOne({
-    id, name, age, github, cep, state, city, district, street, num, comp,
-  });
-  return {
-    register: {
-      id, name, age, github, cep, state, city, district, street, num, comp,
-    },
-  };
+  await db.collection('registers').insertOne(data);
+  return { data };
 };
 
 const allRegister = async () => {
@@ -21,38 +13,24 @@ const allRegister = async () => {
   return register;
 };
 
-const findRegister = async (id) => {
+const updateRegister = async (dataId, data) => {
   const db = await connection();
-  const find = await db.collection('registers').findOne({ id });
-  return find;
-};
-
-const updateRegister = async (data) => {
-  const {
-    id, name, age, github, cep, state, city, district, street, num, comp,
-  } = data;
-  const db = await connection();
-  await db.collection('registers').updateOne({ id }, {
-    $set: {
-      register: {
-        name, age, github, cep, state, city, district, street, num, comp,
-      },
-    },
+  const result = await db.collection('registers').updateOne({ _id: ObjectId(dataId) }, {
+    $set: { ...data },
   });
-  return {
-    register: id, name, age, github, cep, state, city, district, street, num, comp,
-  };
+  return result;
 };
 
 const excludeRegister = async (id) => {
   const db = await connection();
-  await db.collection('recipes').deleteOne({ id });
+  const find = await db.collection('registers').findOne({ _id: ObjectId(id) });
+  await db.collection('registers').deleteOne({ _id: ObjectId(id) });
+  return find;
 };
 
 module.exports = {
   registerCreate,
   allRegister,
-  findRegister,
   updateRegister,
   excludeRegister,
 };
