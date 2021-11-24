@@ -1,8 +1,8 @@
 require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
-const MONGO_DB_URL = `mongodb://${process.env.HOST || 'mongodb'}:27017/Cookmaster`;
-const DB_NAME = 'Cookmaster';
+const MONGO_DB_URL = `mongodb://${process.env.HOST || 'mongodb'}:27017/roitbank`;
+const DB_NAME = 'roitbank';
 
 module.exports = () => MongoClient.connect(MONGO_DB_URL, {
   useNewUrlParser: true,
